@@ -24,6 +24,10 @@ def main():
         "https://equ6hxb6wg-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.9.1)%3B%20Browser%20(lite)%3B%20JS%20Helper%20(3.4.4)&x-algolia-api-key=da97ef494552f47ecc6f47068888d120&x-algolia-application-id=EQU6HXB6WG",
         "elkgrove-request.json",
     )
+    callAPI(
+        "reno",
+        "https://www.lithiajeepreno.com/apis/widget/INVENTORY_LISTING_DEFAULT_AUTO_NEW:inventory-data-bus1/getInventory?year=2024&gvBodyStyle=Truck&model=Gladiator&make=Jeep&pageSize=50"
+    )
 
 
 def callAPI(location, url, payloadLocation=None):
