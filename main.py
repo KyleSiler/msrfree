@@ -31,14 +31,14 @@ def callAPI(location, url, payloadLocation=None):
         payload = ""
         with open("requests/" + payloadLocation, "r") as f:
             payload = f.read()
-        request = requests.post(url, data=payload)
+        response = requests.post(url, data=payload)
     else:
-        request = requests.get(url)
+        response = requests.get(url)
 
     now = time.strftime("%Y%m%d")
     filename = location + "-" + now + ".json"
     with open("data/" + filename, "wb") as f:
-        f.write(request.content)
+        f.write(response.content)
 
 
 if __name__ == "__main__":
