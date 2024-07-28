@@ -26,14 +26,19 @@ def main():
     )
     callAPI(
         "reno",
-        "https://www.lithiajeepreno.com/apis/widget/INVENTORY_LISTING_DEFAULT_AUTO_NEW:inventory-data-bus1/getInventory?year=2024&gvBodyStyle=Truck&model=Gladiator&make=Jeep&pageSize=50"
+        "https://www.lithiajeepreno.com/apis/widget/INVENTORY_LISTING_DEFAULT_AUTO_NEW:inventory-data-bus1/getInventory?year=2024&gvBodyStyle=Truck&model=Gladiator&make=Jeep&pageSize=50",
+    )
+    callAPI(
+        "placerville",
+        "https://2591j46p8g-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia for JavaScript (4.9.1); Browser (lite); JS Helper (3.4.4)&x-algolia-api-key=78311e75e16dd6273d6b00cd6c21db3c&x-algolia-application-id=2591J46P8G",
+        "placerville-request.json",
     )
 
 
 def callAPI(location, url, payloadLocation=None):
     if payloadLocation:
         payload = ""
-        with open("requests/" + payloadLocation, "r") as f:
+        with open("/home/ksiler/msrfree/requests/" + payloadLocation, "r") as f:
             payload = f.read()
         response = requests.post(url, data=payload)
     else:
@@ -41,7 +46,7 @@ def callAPI(location, url, payloadLocation=None):
 
     now = time.strftime("%Y%m%d")
     filename = location + "-" + now + ".json"
-    with open("data/" + filename, "wb") as f:
+    with open("/home/ksiler/msrfree/data/" + filename, "wb") as f:
         f.write(response.content)
 
 
