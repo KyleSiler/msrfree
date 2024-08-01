@@ -84,7 +84,7 @@ class DataIngest:
                 "dealership",
                 "hit.year",
                 "hit.trim",
-                sf.ucase("hit.trim").alias("s_trim"),
+                sf.expr("ucase(split_part(hit.trim, ' ', 1))").alias("s_trim"),
                 sf.col("hit.ext_color_generic").alias("color"),
                 sf.col("hit.msrp").alias("retail_price"),
                 sf.col("hit.our_price").alias("final_price"),

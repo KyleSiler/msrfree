@@ -6,6 +6,7 @@ import total_count_by_dealership as tcbd
 import box_price_by_trim as bpbt
 import pie_distribution_by_trim as pdbt
 import pie_distribution_by_color as pdbc
+import sold_cars_by_dealership as scbd
 
 app = Dash()
 
@@ -45,6 +46,15 @@ app.layout = [
         ],
         style={"display": "flex", "flexDirection": "row"},
     ),
+    html.Div(
+        [
+            dcc.Graph(
+                figure=scbd.create_graph(data.df_all_dealerships),
+                id="sold-cars-by-dealership",
+            )
+        ],
+        style={"display": "flex", "flexDirection": "row"},
+    ),
 ]
 
 
@@ -68,6 +78,13 @@ def update_box_price_by_trim_graph(value):
 )
 def update_pie_distribution_by_color_graph(value):
     return pdbc.create_graph(data.df_all_dealerships, value)
+
+
+# @callback(
+#     Output("sold-cars-by-dealership", "figure"), Input("total-count-checklist", "value")
+# )
+# def update_sold_cars_by_dealership(value):
+#     return scbd.create_graph(data.df_all_dealerships, value)
 
 
 if __name__ == "__main__":
