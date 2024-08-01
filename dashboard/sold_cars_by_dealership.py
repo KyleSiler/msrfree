@@ -9,7 +9,6 @@ def create_graph(df_all_dealerships: DataFrame, value=[]) -> Figure:
     if value:
         query = df_all_dealerships.filter(fn.col("s_trim").isin(value))
 
-    # TODO: This isn't working properly. The second groupBy/Count is not right
     df_counts_by_dealership = (
         query.groupBy("vin", "dealership")
         .agg(fn.max("date").alias("last_seen"))

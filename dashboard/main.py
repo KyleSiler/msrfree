@@ -80,11 +80,11 @@ def update_pie_distribution_by_color_graph(value):
     return pdbc.create_graph(data.df_all_dealerships, value)
 
 
-# @callback(
-#     Output("sold-cars-by-dealership", "figure"), Input("total-count-checklist", "value")
-# )
-# def update_sold_cars_by_dealership(value):
-#     return scbd.create_graph(data.df_all_dealerships, value)
+@callback(
+    Output("sold-cars-by-dealership", "figure"), Input("total-count-checklist", "value")
+)
+def update_sold_cars_by_dealership(value):
+    return scbd.create_graph(data.df_all_dealerships, value)
 
 
 if __name__ == "__main__":
