@@ -14,5 +14,14 @@ def create_graph(df_all_dealerships: DataFrame, value=[]) -> Figure:
         x="s_trim",
         y="final_price",
         color="dealership",
+        category_orders={
+            "dealership": [
+                "elkgrove",
+                "folsom",
+                "placerville",
+                "roseville",
+                "sacramento",
+            ]
+        },
         title="Box Price by Trim",
     )

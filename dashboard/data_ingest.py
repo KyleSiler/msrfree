@@ -5,6 +5,7 @@ from pyspark.sql import functions as sf
 class DataIngest:
     def __init__(self):
         self.spark = SparkSession.builder.getOrCreate()
+        self.spark.conf.set("spark.sql.session.timeZone", "America/Los_Angeles")
         df_autonation = self.createAutonationDataFrame()
         df_elkgrove = self.createElkGroveDataFrame()
         self.df_all_dealerships = df_autonation.union(df_elkgrove)
@@ -48,6 +49,7 @@ class DataIngest:
             )
             .cast("double")
             .alias("final_price"),
+            sf.expr("(final_price / retail_price) * 100").alias("percent_off"),
         )
 
     def createElkGroveDataFrame(self) -> DataFrame:
@@ -88,5 +90,6 @@ class DataIngest:
                 sf.col("hit.ext_color_generic").alias("color"),
                 sf.col("hit.msrp").alias("retail_price"),
                 sf.col("hit.our_price").alias("final_price"),
+                sf.expr("(final_price / retail_price) * 100").alias("percent_off"),
             )
         )

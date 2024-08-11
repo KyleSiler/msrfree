@@ -12,16 +12,14 @@ Install pipenv
 
 `python main.py`
 
+## Running Jupyter Lab from Ubuntu server
+
+SSH into server, creating tunnel to local port
+`ssh -L 8888:localhost:8888 oasis.local`
+
+From there you can follow the link jupyter lab generates
+`http://localhost:8888/lab?token=ABCDEFGHIJKLMNOP`
 
 ## ToDo
-Copy files to oasis.local
-
-Setup cron job for oasis.local
 
 Run spark
-
-?? Translate json data into parquet? May not be necessary if Batch jobis just going to read all data in in one go
-
-Dash app that reads in parquet files
-
-

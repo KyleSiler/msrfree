@@ -22,5 +22,14 @@ def create_graph(df_all_dealerships: DataFrame, value=[]) -> Figure:
         x="last_seen",
         y="count",
         color="dealership",
+        category_orders={
+            "dealership": [
+                "elkgrove",
+                "folsom",
+                "placerville",
+                "roseville",
+                "sacramento",
+            ]
+        },
         title="Total Units Sold per Dealership",
     )
