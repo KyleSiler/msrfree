@@ -49,7 +49,7 @@ class DataIngest:
             )
             .cast("double")
             .alias("final_price"),
-            sf.expr("(final_price / retail_price) * 100").alias("percent_off"),
+            sf.expr("(final_price / retail_price) * 100").alias("final_percent"),
         )
 
     def createElkGroveDataFrame(self) -> DataFrame:
@@ -90,6 +90,6 @@ class DataIngest:
                 sf.col("hit.ext_color_generic").alias("color"),
                 sf.col("hit.msrp").alias("retail_price"),
                 sf.col("hit.our_price").alias("final_price"),
-                sf.expr("(final_price / retail_price) * 100").alias("percent_off"),
+                sf.expr("(final_price / retail_price) * 100").alias("final_percent"),
             )
         )

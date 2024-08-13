@@ -6,6 +6,7 @@ import pie_distribution_by_trim as pdbt
 import pie_distribution_by_color as pdbc
 import sold_cars_by_dealership as scbd
 import sold_cars_table as sct
+import total_discounts_mojave as tdm
 
 app = Dash()
 
@@ -43,6 +44,19 @@ app.layout = [
                     data.df_all_dealerships,
                 ).to_dict("records"),
                 id="sold-cars-table",
+            ),
+        ],
+        style={"display": "flex", "flexDirection": "row"},
+    ),
+    html.Div(
+        [
+            dcc.Graph(
+                figure=tdm.create_graph(data.df_all_dealerships),
+                id="total-discounts-mojave",
+            ),
+            dash_table.DataTable(
+                tdm.create_table(data.df_all_dealerships).to_dict("records"),
+                id="total-discounts-mojave-table",
             ),
         ],
         style={"display": "flex", "flexDirection": "row"},
