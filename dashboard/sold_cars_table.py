@@ -8,6 +8,7 @@ def create_table(df_all_dealerships: DataFrame, value=[]) -> PandaFrame:
     if value:
         query = df_all_dealerships.filter(fn.col("s_trim").isin(value))
 
+        # Need to add final_price and retail_price from the last day observed. Might be tricky to do
     return (
         query.groupBy("vin", "dealership", "s_trim")
         .agg(fn.max("date").alias("last_seen"))

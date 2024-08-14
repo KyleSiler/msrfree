@@ -4,7 +4,7 @@ from pyspark.sql import functions as sf
 
 class DataIngest:
     def __init__(self):
-        self.spark = SparkSession.builder.getOrCreate()
+        self.spark = SparkSession.builder.master("spark://oasis:7077").getOrCreate()
         self.spark.conf.set("spark.sql.session.timeZone", "America/Los_Angeles")
         df_autonation = self.createAutonationDataFrame()
         df_elkgrove = self.createElkGroveDataFrame()
