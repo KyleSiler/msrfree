@@ -22,4 +22,6 @@ From there you can follow the link jupyter lab generates
 
 ## ToDo
 
-Run spark
+If spark isn't running, execute `sbin/start-all.sh`
+can view server GUI on localhost:8080
+server connection at localhost:7077 (see gui)
