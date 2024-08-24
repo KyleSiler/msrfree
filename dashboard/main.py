@@ -1,12 +1,13 @@
 from dash import Dash, html, dcc, callback, Output, Input, dash_table
-import data_ingest
-import total_count_by_dealership as tcbd
-import box_price_by_trim as bpbt
-import pie_distribution_by_trim as pdbt
-import pie_distribution_by_color as pdbc
-import sold_cars_by_dealership as scbd
-import sold_cars_table as sct
-import total_discounts_mojave as tdm
+import graphs.data_ingest as data_ingest
+import graphs.total_count_by_dealership as tcbd
+import graphs.box_price_by_trim as bpbt
+import graphs.pie_distribution_by_trim as pdbt
+import graphs.pie_distribution_by_color as pdbc
+import graphs.sold_cars_by_dealership as scbd
+import graphs.sold_cars_table as sct
+import graphs.total_discounts_mojave as tdm
+import graphs.sales_by_quarter as sbq
 
 app = Dash()
 
@@ -74,6 +75,13 @@ app.layout = [
         ],
         style={"display": "flex", "flexDirection": "row"},
     ),
+    html.Div(
+        [
+            dcc.Graph(
+                figure=sbq.create_graph()
+            )
+        ]
+    )
 ]
 
 
