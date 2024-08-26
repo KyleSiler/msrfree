@@ -4,3 +4,6 @@ data/*
 dashboard/__pycache__
 venv/
 dashboard/.venv/
+cron.log
+.python-version
+lib64
