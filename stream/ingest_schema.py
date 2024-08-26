@@ -7,11 +7,13 @@ spark = (SparkSession.builder
 )
 
 autonation_schema = StructType([StructField("inventory", ArrayType(StructType([
-    StructField("vin", StringType())
+    StructField("vin", StringType()),
+    StructField("year", StringType()),
+    StructField("trim", StringType())
 ])))])
 
-json_files = spark.read.schema(autonation_schema).json("/home/ksiler/msrfree/data/autonation")
 #json_files = spark.read.json("/home/ksiler/msrfree/data/autonation")
+json_files = spark.read.schema(autonation_schema).json("/home/ksiler/msrfree/data/autonation")
 
 json_files.printSchema()
-#print(json_files.head(10))
+json_files.show()
