@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
+from pyspark.sql.types import StructType, StructField, StringType, ArrayType
 
 spark = (
     SparkSession.builder.appName("IngestAutonation")
@@ -9,12 +10,59 @@ spark = (
 
 spark.conf.set("spark.sql.session.timeZone", "America/Los_Angeles")
 
-# Need to create a schema that will be used on read
-json_stream = spark.readStream.json(
-        "/home/ksiler/msrfree/data/autonation"
+autonation_schema = StructType(
+    [
+        StructField(
+            "inventory",
+            ArrayType(
+                StructType(
+                    [
+                        StructField("vin", StringType()),
+                        StructField("year", StringType()),
+                        StructField("trim", StringType()),
+                        StructField(
+                            "attributes",
+                            ArrayType(
+                                StructType(
+                                    [
+                                        StructField("name", StringType()),
+                                        StructField("normalizedValue", StringType()),
+                                    ]
+                                )
+                            ),
+                        ),
+                        StructField(
+                            "pricing",
+                            StructType(
+                                [
+                                    StructField("retailPrice", StringType()),
+                                    StructField(
+                                        "dPrice",
+                                        ArrayType(
+                                            StructType(
+                                                [
+                                                    StructField("type", StringType()),
+                                                    StructField("value", StringType()),
+                                                ]
+                                            ),
+                                        ),
+                                    ),
+                                ]
+                            ),
+                        ),
+                    ]
+                )
+            ),
+        )
+    ]
 )
 
-df_autonation = json_stream.select(sf.explode("inventory").alias("inventory"))
+df_autonation = spark.readStream.schema(autonation_schema).json(
+    "/home/ksiler/msrfree/data/autonation"
+)
+
+df_autonation = df_autonation.select(sf.explode("inventory").alias("inventory"))
+
 df_autonation = df_autonation.withColumn("fileName", sf.input_file_name())
 df_autonation = df_autonation.withColumn(
     "dealership",
@@ -24,7 +72,7 @@ df_autonation = df_autonation.withColumn(
     "date", sf.regexp_extract(sf.col("fileName"), r"(\d{4}\d{2}\d{2})", 1)
 ).drop("fileName")
 df_autonation = df_autonation.withColumn("date", sf.to_date(sf.col("date"), "yyyyMMdd"))
-df_autonation.select(
+df_autonation = df_autonation.select(
     "date",
     "inventory.vin",
     "dealership",
