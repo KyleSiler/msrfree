@@ -20,8 +20,14 @@ SSH into server, creating tunnel to local port
 From there you can follow the link jupyter lab generates
 `http://localhost:8888/lab?token=ABCDEFGHIJKLMNOP`
 
-## ToDo
+## Troubleshooting
 
 If spark isn't running, execute `sbin/start-all.sh`
 can view server GUI on localhost:8080
 server connection at localhost:7077 (see gui)
+
+## ToDo
+* Convert to batch process. Stream isn't worht the overhead for this small of a workload
+* Batch should write to PostgreSQL
+* Change display so that it now loads data from PostgreSQL (Is this possible with Dash, or do I need another frontend) 
+* Rewrite process to Java(?)
